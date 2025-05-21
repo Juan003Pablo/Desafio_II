@@ -1,0 +1,8 @@
+#include "fecha.h"
+
+Fecha::Fecha()
+{
+private:
+    int dia;
+    int mes
+}
