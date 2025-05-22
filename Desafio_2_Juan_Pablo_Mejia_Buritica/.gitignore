@@ -1,0 +1,62 @@
+# Archivos de proyecto de Qt y QMake
+*.pro.user
+*.pro.user.*
+*.qbs.user
+*.qbs.user.*
+
+# Archivos generados por QMake y compilación
+Makefile*
+*.o
+*.obj
+*.so
+*.dll
+*.a
+*.lib
+*.exe
+*.moc
+*.rcc
+*.qrc.depends
+*.qrc.cpp
+*.cpp~
+*.h~
+*.tmp
+
+# Archivos generados por Qt Creator
+.qmake.stash
+*.autosave
+*.creator.*
+*.creator
+*.qmlproject.user
+*.user
+*.bak
+*.swp
+
+# Directorios de compilación comunes
+build-*/
+debug/
+release/
+x64/
+x86/
+*.app
+*.dSYM/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de GitHub Desktop
+*.sublime-workspace
+*.sublime-project
+
+# Archivos de CMake
+CMakeLists.txt.user
+CMakeFiles/
+CMakeCache.txt
+
+# Archivos de logs y otros temporales
+*.log
+*.log.*
+
+# Ignorar datos sensibles o locales (opcional, si los tienes)
+*.env
+.env.*
