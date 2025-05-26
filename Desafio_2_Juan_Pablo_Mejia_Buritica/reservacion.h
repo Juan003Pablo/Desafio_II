@@ -14,7 +14,7 @@ private:
     float monto;
 
 public:
-    Reservacion();
+    Reservacion(const Fecha &fecha, int duracion, int codigo, int documento, const std::string metodo, float monto);
 };
 
 #endif // RESERVACION_H

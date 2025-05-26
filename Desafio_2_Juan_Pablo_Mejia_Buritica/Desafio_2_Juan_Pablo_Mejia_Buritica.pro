@@ -4,6 +4,8 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        Funciones.cpp \
+        Menus.cpp \
         alojamiento.cpp \
         anfitrion.cpp \
         fecha.cpp \
@@ -12,8 +14,12 @@ SOURCES += \
         reservacion.cpp
 
 HEADERS += \
+    Funciones.h \
     alojamiento.h \
     anfitrion.h \
     fecha.h \
     huesped.h \
     reservacion.h
+
+DISTFILES += \
+    .gitignore

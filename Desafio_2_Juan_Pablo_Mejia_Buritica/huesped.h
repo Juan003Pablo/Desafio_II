@@ -10,7 +10,7 @@ private:
     int antiguedad;
     Reservacion reservaciones;
 public:
-    Huesped();
+    Huesped(int doc, float punt, int ant, const Reservacion& reserv);
 };
 
 #endif // HUESPED_H
