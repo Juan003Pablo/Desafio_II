@@ -5,13 +5,13 @@ CONFIG -= qt
 
 SOURCES += \
         Funciones.cpp \
-        Menus.cpp \
         alojamiento.cpp \
         anfitrion.cpp \
         fecha.cpp \
         huesped.cpp \
         main.cpp \
-        reservacion.cpp
+        reservacion.cpp \
+        sistema_udeastay.cpp
 
 HEADERS += \
     Funciones.h \
@@ -19,7 +19,8 @@ HEADERS += \
     anfitrion.h \
     fecha.h \
     huesped.h \
-    reservacion.h
+    reservacion.h \
+    sistema_udeastay.h
 
 DISTFILES += \
     .gitignore
