@@ -29,6 +29,7 @@ public:
     void agregarDatosPrueba(); // Cargar datos iniciales para pruebas
 
     void reservarAlojamiento(Huesped& h);
+    void anularReservacion(Huesped& h);
 
     void cargarHuespedes();
     void cargarAnfitriones();

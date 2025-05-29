@@ -2,6 +2,9 @@
 #include <iostream>
 #include <cstdio>
 
+Fecha::Fecha() : dia(1), mes(1), anio(2025) {}
+Fecha::Fecha(int d, int m, int a) : dia(d), mes(m), anio(a) {}
+
 bool Fecha::esBisiesto() const {
     return (anio % 4 == 0 && (anio % 100 != 0 || anio % 400 == 0));
 }
@@ -15,9 +18,6 @@ int Fecha::obtenerDiasDelMes() const {
 
     return diasPorMes[mes - 1];
 }
-
-Fecha::Fecha() : dia(1), mes(1), anio(2025) {}
-Fecha::Fecha(int d, int m, int a) : dia(d), mes(m), anio(a) {}
 
 void Fecha::sumarDias(int sumaDias) {
     dia += sumaDias;  // Incrementamos los días

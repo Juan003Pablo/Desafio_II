@@ -41,12 +41,29 @@ bool Huesped::tieneConflictoCon(const Fecha& inicio, int noches) const {
 }
 
 void Huesped::mostrarReservaciones() const {
-    std::cout << "Reservas del huésped " << documento << ":\n";
+    std::cout << "Reservas del huesped " << documento << ":\n";
     for (int i = 0; i < cantidadReservaciones; i++) {
         reservaciones[i].mostrarResumen();
         std::cout << "-------------------------\n";
     }
 }
+
+void Huesped::eliminarReservacion(int index) {
+    if (index < 0 || index >= cantidadReservaciones) return;
+
+    Reservacion* nuevo = new Reservacion[cantidadReservaciones - 1];
+
+    for (int i = 0, j = 0; i < cantidadReservaciones; i++) {
+        if (i != index) {
+            nuevo[j++] = reservaciones[i];
+        }
+    }
+
+    delete[] reservaciones;
+    reservaciones = nuevo;
+    cantidadReservaciones--;
+}
+
 
 int Huesped::getCantidadReservaciones() const {
     return cantidadReservaciones;

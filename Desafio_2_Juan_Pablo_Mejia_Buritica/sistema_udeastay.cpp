@@ -106,7 +106,7 @@ void SistemaUdeAStay::menuAnfitrion(Anfitrion& a) {
 
 void SistemaUdeAStay::anularReservacion(Huesped& h) {
     std::string codReserva;
-    std::cout << "Ingrese el código de la reservación que desea anular: ";
+    std::cout << "Ingrese el codigo de la reservacion que desea anular: ";
     std::cin >> codReserva;
 
     // Buscar la reservación en las reservas del huésped
@@ -127,13 +127,13 @@ void SistemaUdeAStay::anularReservacion(Huesped& h) {
                 }
             }
 
-            std::cout << "La reservación ha sido anulada exitosamente.\n";
+            std::cout << "La reservacion ha sido anulada exitosamente.\n";
             break;
         }
     }
 
     if (!encontrada) {
-        std::cout << "No se encontró una reservación con ese código.\n";
+        std::cout << "No se encontro una reservacion con ese codigo.\n";
     }
 }
 
@@ -151,18 +151,18 @@ void SistemaUdeAStay::reservarAlojamiento(Huesped& h) {
     std::cout << "Ingrese la fecha de entrada, primero dia, luego mes y por ultimo anio: "<<std::endl;
     std::cin >> dia >> mes >> anio;
 
-    std::cout << "Número de noches: ";
+    std::cout << "Numero de noches: ";
     std::cin >> noches;
 
     Fecha inicio(dia, mes, anio);
 
-    std::cout << "¿Desea aplicar filtros? (s/n): ";
+    std::cout << "Desea aplicar filtros? (s/n): ";
     std::cin >> usarFiltros;
 
     if (usarFiltros == 's' || usarFiltros == 'S') {
         std::cout << "Precio maximo por noche: ";
         std::cin >> precioMax;
-        std::cout << "Puntuación minima del anfitrion: ";
+        std::cout << "Puntuacion minima del anfitrion: ";
         std::cin >> puntMin;
     }
 
@@ -201,7 +201,7 @@ void SistemaUdeAStay::reservarAlojamiento(Huesped& h) {
     std::cin >> seleccion;
 
     if (seleccion < 1 || seleccion > contador) {
-        std::cout << "Selección inválida.\n";
+        std::cout << "Seleccion invalida.\n";
         return;
     }
 
@@ -218,14 +218,14 @@ void SistemaUdeAStay::reservarAlojamiento(Huesped& h) {
     float monto = alojElegido.getPrecioPorNoche() * noches;
     std::string nota;
 
-    std::cout << "Método de pago (PSE/TCredito): ";
+    std::cout << "Metodo de pago (PSE/TCredito): ";
     std::cin >> metodo;
 
-    std::cout << "¿Deseas dejar una anotación? (máx 1000 caracteres):\n";
+    std::cout << "Deseas dejar una anotacion? (max 1000 caracteres):\n";
     std::cin.ignore();
     std::getline(std::cin, nota);
 
-    Fecha hoy(24, 5, 2025); // suplantamos fecha actual
+    Fecha hoy(1, 1, 2025);
 
     Reservacion nueva(codReserva, inicio, noches,
                       alojElegido.getCodigo(), h.getDocumento(),
@@ -240,7 +240,6 @@ void SistemaUdeAStay::reservarAlojamiento(Huesped& h) {
 
 
 void SistemaUdeAStay::cargarHuespedes() {
-    std::cout <<"huespedes"<<std::endl;;
     std::ifstream archivo("huespedes.txt");
     char linea[256];
     int contador = 0;
@@ -271,7 +270,6 @@ void SistemaUdeAStay::cargarHuespedes() {
 }
 
 void SistemaUdeAStay::cargarAnfitriones() {
-    std::cout << "Cargando anfitriones...\n";
 
     std::ifstream archivoA("anfitriones.txt");
     if (!archivoA) {
@@ -318,13 +316,10 @@ void SistemaUdeAStay::cargarAnfitriones() {
         anfitriones[i] = tempA[i];
     }
     delete[] tempA;
-
-    std::cout << " Anfitriones cargados: " << cantidadAnfitriones << "\n";
 }
 
 
 void SistemaUdeAStay::cargarAlojamientos() {
-    std::cout <<"alojamientos"<<std::endl;
     std::ifstream archivoAl("alojamientos.txt");
     char lineaAl[512];
     int contAl = 0;
@@ -362,18 +357,17 @@ void SistemaUdeAStay::cargarAlojamientos() {
         for (int i = 0; i < np; i++) delete[] partes[i];
         delete[] partes;
     }
-    std::cout <<"alojamientos"<<std::endl;
+
     cantidadAlojamientos = contAl;
     alojamientos = new Alojamiento[cantidadAlojamientos];
     for (int i = 0; i < cantidadAlojamientos; i++) {
         alojamientos[i] = tempAl[i];
     }
     delete[] tempAl;
-    std::cout <<"alojamientos"<<std::endl;
+
 }
 
 void SistemaUdeAStay::cargarReservaciones() {
-    std::cout <<"reservaciones"<<std::endl;;
     std::ifstream archivoR("reservaciones.txt");
     char lineaR[512];
 

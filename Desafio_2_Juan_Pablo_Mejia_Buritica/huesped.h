@@ -27,7 +27,7 @@ public:
 
     void agregarReservacion(const Reservacion& r);
     bool tieneConflictoCon(const Fecha& inicio, int noches) const;
-
+    void eliminarReservacion(int index);
     void mostrarReservaciones() const;
 };
 

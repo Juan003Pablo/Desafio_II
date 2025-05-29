@@ -44,9 +44,10 @@ public:
     std::string getAmenidad(int index) const;
     std::string getDocumentoAnfitrion() const;
 
-     void mostrarResumen() const;
-     void agregarReservacion(const Reservacion& r);
-     bool estaDisponible(const Fecha& inicio, int noches) const;
+    void mostrarResumen() const;
+    void agregarReservacion(const Reservacion& r);
+    void eliminarReservacion(const std::string& codigoReservacion);
+    bool estaDisponible(const Fecha& inicio, int noches) const;
 };
 
 #endif // ALOJAMIENTO_H

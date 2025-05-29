@@ -1,6 +1,4 @@
 #include "reservacion.h"
-
-#include "reservacion.h"
 #include "fecha.h"
 #include <iostream>
 
@@ -39,11 +37,11 @@ Fecha Reservacion::calcularFechaFin() const {
 
 void Reservacion::mostrarResumen() const {
     std::cout << "Reserva " << codigoReservacion << ": "
-              << "Huésped " << documentoHuesped << ", "
+              << "Huesped " << documentoHuesped << ", "
               << "Alojamiento " << codigoAlojamiento << "\nEntrada: ";
     fechaEntrada.mostrar();
-    std::cout << "Duración: " << duracionNoches << " noche(s)\n"
+    std::cout << "Duracion: " << duracionNoches << " noche(s)\n"
               << "Monto: $" << monto << " COP\n"
-              << "Método de pago: " << metodoPago << "\n"
+              << "Metodo de pago: " << metodoPago << "\n"
               << "Anotaciones: " << anotaciones << "\n";
 }
