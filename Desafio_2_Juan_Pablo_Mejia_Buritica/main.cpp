@@ -1,16 +1,11 @@
 #include <iostream>
 #include "sistema_udeastay.h"
 
-#include <filesystem>
-
 int main() {
     SistemaUdeAStay sistema;
 
     // Cargar datos desde archivos
-    //sistema.cargarDatosDesdeArchivos();
-
-    std::cout << "Ruta actual: " << std::filesystem::current_path() << std::endl;
-
+    sistema.cargarDatosDesdeArchivos();
 
     // Menú principal
     bool salir = false;
@@ -31,7 +26,7 @@ int main() {
             salir = true;
             break;
         default:
-            std::cout << "Opción invalida. Intente nuevamente."<<std::endl;
+            std::cout << "Opcion invalida. Intente nuevamente."<<std::endl;
         }
     }
 

@@ -95,7 +95,7 @@ void Alojamiento::mostrarResumen() const {
 void Alojamiento::agregarReservacion(const Reservacion& r) {
     // Verificar si la nueva reserva está disponible
     if (!estaDisponible(r.getFechaEntrada(), r.getNoches())) {
-        std::cout << "La reserva entra en conflicto con una reserva existente y no se agregará.\n";
+        std::cout << "La reserva entra en conflicto con una reserva existente y no se agregara.\n";
         return;  // No se agrega la reserva si hay conflicto
     }
 
@@ -110,6 +110,30 @@ void Alojamiento::agregarReservacion(const Reservacion& r) {
     cantidadReservaciones++;
 }
 
+void Alojamiento::eliminarReservacion(const std::string& codigoReservacion) {
+    int index = -1;
+    for (int i = 0; i < cantidadReservaciones; i++) {
+        if (reservaciones[i].getCodigoReservacion() == codigoReservacion) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == -1) return; // No se encontro la reservación
+
+    // Eliminar la reservacion
+    Reservacion* nuevo = new Reservacion[cantidadReservaciones - 1];
+
+    for (int i = 0, j = 0; i < cantidadReservaciones; i++) {
+        if (i != index) {
+            nuevo[j++] = reservaciones[i];
+        }
+    }
+
+    delete[] reservaciones;
+    reservaciones = nuevo;
+    cantidadReservaciones--;
+}
 
 bool Alojamiento::estaDisponible(const Fecha& inicio, int noches) const {
     Fecha fin = inicio;
