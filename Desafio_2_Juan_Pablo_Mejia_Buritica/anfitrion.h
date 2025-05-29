@@ -19,8 +19,6 @@ public:
     std::string getDocumento() const;
     int getAntiguedad() const;
     float getPuntuacion() const;
-
-    void agregarAlojamiento(const std::string& codigoAlojamiento);
     void mostrarAlojamientos() const;
     std::string getCodigoAlojamiento(int i) const;
     int getCantidadAlojamientos() const;

@@ -8,9 +8,9 @@
 #include "alojamiento.h"
 
 
-SistemaUdeAStay::SistemaUdeAStay() : alojamientos(nullptr), cantidadAlojamientos(0),
-    huespedes(nullptr), cantidadHuespedes(0),
-    anfitriones(nullptr), cantidadAnfitriones(0) {}
+SistemaUdeAStay::SistemaUdeAStay() : alojamientos(nullptr), cantidadAlojamientos(50),
+    huespedes(nullptr), cantidadHuespedes(50),
+    anfitriones(nullptr), cantidadAnfitriones(50) {}
 
 SistemaUdeAStay::~SistemaUdeAStay() {
     delete[] alojamientos;
@@ -40,6 +40,7 @@ void SistemaUdeAStay::login() {
             menuHuesped(huespedes[i]);
             return;
         }
+        std::cout << huespedes[i].getDocumento();
     }
 
     // Buscar en anfitriones
@@ -57,29 +58,29 @@ void SistemaUdeAStay::login() {
 void SistemaUdeAStay::menuHuesped(Huesped& h) {
     int opcion = 0;
     do {
-            std::cout << "\n--- Menu huesped ---"<<std::endl;
-            std::cout <<"Elija una opcion"<<std::endl;
-            std::cout <<"1. Reservar alojamiento"<<std::endl;
-            std::cout <<"2. Anular reservacion"<<std::endl;
-            std::cout <<"3. ver reservaciones"<<std::endl;
-            std::cout <<"4. salir"<<std::endl;
-            std::cin >> opcion;
+        std::cout << "\n--- Menu huesped ---"<<std::endl;
+        std::cout <<"Elija una opcion"<<std::endl;
+        std::cout <<"1. Reservar alojamiento"<<std::endl;
+        std::cout <<"2. Anular reservacion"<<std::endl;
+        std::cout <<"3. ver reservaciones"<<std::endl;
+        std::cout <<"4. salir"<<std::endl;
+        std::cin >> opcion;
 
-            switch (opcion) {
-            case 1:
-                reservarAlojamiento(h);
-                break;
-            case 2:
+        switch (opcion) {
+        case 1:
+            reservarAlojamiento(h);
+            break;
+        case 2:
 
-                break;
-            case 3:
-                h.mostrarReservaciones();
-                break;
-            case 4:
-                break;
-            default:
-                break;
-            }
+            break;
+        case 3:
+            h.mostrarReservaciones();
+            break;
+        case 4:
+            break;
+        default:
+            break;
+        }
     } while (opcion != 4);
 }
 
@@ -207,6 +208,7 @@ void SistemaUdeAStay::reservarAlojamiento(Huesped& h) {
 
 
 void SistemaUdeAStay::cargarHuespedes() {
+    std::cout <<"huespedes"<<std::endl;;
     std::ifstream archivo("huespedes.txt");
     char linea[256];
     int contador = 0;
@@ -237,33 +239,43 @@ void SistemaUdeAStay::cargarHuespedes() {
 }
 
 void SistemaUdeAStay::cargarAnfitriones() {
+    std::cout << "Cargando anfitriones...\n";
+
     std::ifstream archivoA("anfitriones.txt");
+    if (!archivoA) {
+        std::cerr << " Error: no se pudo abrir anfitriones.txt\n";
+        return;
+    }
+
     char lineaA[256];
     int contA = 0;
-    Anfitrion* tempA = new Anfitrion[100];
+    Anfitrion* tempA = new Anfitrion[100];  // máx 100 anfitriones
 
     while (archivoA.getline(lineaA, 256)) {
-        if (strstr(lineaA, "documento")) continue;
+        if (strstr(lineaA, "documento")) continue;  // saltar cabecera
 
         int np;
         char** partes = split(lineaA, ';', np);
         if (np >= 4) {
             int antiguedad = atoi(partes[1]);
             float puntuacion = atof(partes[2]);
-            Anfitrion a(partes[0], antiguedad, puntuacion);
 
-            // ahora dividir alojamientos
+            // Crear anfitrión directamente en el arreglo
+            tempA[contA] = Anfitrion(partes[0], antiguedad, puntuacion);
+
+            // Separar alojamientos
             int na;
             char** aloj = split(partes[3], ',', na);
             for (int j = 0; j < na; j++) {
-                a.agregarAlojamiento(aloj[j]);
-                delete[] aloj[j];
+                tempA[contA].agregarAlojamiento(aloj[j]);  // copiar string
+                delete[] aloj[j];  // liberar string individual
             }
-            delete[] aloj;
+            delete[] aloj;  // liberar arreglo de punteros
 
-            tempA[contA++] = a;
+            contA++;
         }
 
+        // Liberar memoria del split principal
         for (int i = 0; i < np; i++) delete[] partes[i];
         delete[] partes;
     }
@@ -274,9 +286,13 @@ void SistemaUdeAStay::cargarAnfitriones() {
         anfitriones[i] = tempA[i];
     }
     delete[] tempA;
+
+    std::cout << " Anfitriones cargados: " << cantidadAnfitriones << "\n";
 }
 
+
 void SistemaUdeAStay::cargarAlojamientos() {
+    std::cout <<"alojamientos"<<std::endl;
     std::ifstream archivoAl("alojamientos.txt");
     char lineaAl[512];
     int contAl = 0;
@@ -314,16 +330,18 @@ void SistemaUdeAStay::cargarAlojamientos() {
         for (int i = 0; i < np; i++) delete[] partes[i];
         delete[] partes;
     }
-
+    std::cout <<"alojamientos"<<std::endl;
     cantidadAlojamientos = contAl;
     alojamientos = new Alojamiento[cantidadAlojamientos];
     for (int i = 0; i < cantidadAlojamientos; i++) {
         alojamientos[i] = tempAl[i];
     }
     delete[] tempAl;
+    std::cout <<"alojamientos"<<std::endl;
 }
 
 void SistemaUdeAStay::cargarReservaciones() {
+    std::cout <<"reservaciones"<<std::endl;;
     std::ifstream archivoR("reservaciones.txt");
     char lineaR[512];
 
@@ -371,6 +389,21 @@ void SistemaUdeAStay::cargarReservaciones() {
 }
 
 void SistemaUdeAStay::cargarDatosDesdeArchivos() {
+    if (alojamientos == nullptr) {
+        alojamientos = new Alojamiento[100];
+        cantidadAlojamientos = 100;
+    }
+
+    if (huespedes == nullptr) {
+        huespedes = new Huesped[100];
+        cantidadHuespedes = 100;
+    }
+
+    if (anfitriones == nullptr) {
+        anfitriones = new Anfitrion[100];
+        cantidadAnfitriones = 100;
+    }
+
     cargarHuespedes();
     cargarAnfitriones();
     cargarAlojamientos();

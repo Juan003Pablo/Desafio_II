@@ -19,6 +19,45 @@ Alojamiento::Alojamiento(const std::string& cod, const std::string& nom, const s
     reservaciones = nullptr;
 }
 
+Alojamiento::Alojamiento(const Alojamiento& otro) {
+    codigo = otro.codigo;
+    nombre = otro.nombre;
+    tipo = otro.tipo;
+    direccion = otro.direccion;
+    municipio = otro.municipio;
+    departamento = otro.departamento;
+    precioPorNoche = otro.precioPorNoche;
+    documentoAnfitrion = otro.documentoAnfitrion;
+    cantidadAmenidades = otro.cantidadAmenidades;
+
+    amenidades = new std::string[cantidadAmenidades];
+    for (int i = 0; i < cantidadAmenidades; i++) {
+        amenidades[i] = otro.amenidades[i];
+    }
+}
+
+Alojamiento& Alojamiento::operator=(const Alojamiento& otro) {
+    if (this != &otro) {
+        delete[] amenidades;
+
+        codigo = otro.codigo;
+        nombre = otro.nombre;
+        tipo = otro.tipo;
+        direccion = otro.direccion;
+        municipio = otro.municipio;
+        departamento = otro.departamento;
+        precioPorNoche = otro.precioPorNoche;
+        documentoAnfitrion = otro.documentoAnfitrion;
+        cantidadAmenidades = otro.cantidadAmenidades;
+
+        amenidades = new std::string[cantidadAmenidades];
+        for (int i = 0; i < cantidadAmenidades; i++) {
+            amenidades[i] = otro.amenidades[i];
+        }
+    }
+    return *this;
+}
+
 Alojamiento::~Alojamiento() {
     delete[] amenidades;
     delete[] reservaciones;
@@ -54,6 +93,13 @@ void Alojamiento::mostrarResumen() const {
 }
 
 void Alojamiento::agregarReservacion(const Reservacion& r) {
+    // Verificar si la nueva reserva está disponible
+    if (!estaDisponible(r.getFechaEntrada(), r.getNoches())) {
+        std::cout << "La reserva entra en conflicto con una reserva existente y no se agregará.\n";
+        return;  // No se agrega la reserva si hay conflicto
+    }
+
+    // Si no hay conflicto, agregar la reserva normalmente
     Reservacion* nuevo = new Reservacion[cantidadReservaciones + 1];
     for (int i = 0; i < cantidadReservaciones; i++) {
         nuevo[i] = reservaciones[i];
@@ -63,6 +109,7 @@ void Alojamiento::agregarReservacion(const Reservacion& r) {
     reservaciones = nuevo;
     cantidadReservaciones++;
 }
+
 
 bool Alojamiento::estaDisponible(const Fecha& inicio, int noches) const {
     Fecha fin = inicio;

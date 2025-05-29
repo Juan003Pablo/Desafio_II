@@ -15,17 +15,6 @@ int Anfitrion::getAntiguedad() const { return antiguedad; }
 float Anfitrion::getPuntuacion() const { return puntuacion; }
 
 
-void Anfitrion::agregarAlojamiento(const std::string& codigoAlojamiento) {
-    std::string* nuevo = new std::string[cantidadAlojamientos + 1];
-    for (int i = 0; i < cantidadAlojamientos; i++) {
-        nuevo[i] = codigosAlojamientos[i];
-    }
-    nuevo[cantidadAlojamientos] = codigoAlojamiento;
-    delete[] codigosAlojamientos;
-    codigosAlojamientos = nuevo;
-    cantidadAlojamientos++;
-}
-
 void Anfitrion::mostrarAlojamientos() const {
     std::cout << "Alojamientos del anfitrión " << documento << ":\n";
     for (int i = 0; i < cantidadAlojamientos; i++) {

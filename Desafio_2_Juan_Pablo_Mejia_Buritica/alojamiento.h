@@ -27,7 +27,8 @@ public:
     Alojamiento(const std::string& cod, const std::string& nom, const std::string& tipo,
                 const std::string& dir, const std::string& mun, const std::string& depto,
                 float precio, std::string* amenidades, int cantAmen, const std::string& docAnfitrion);
-
+    Alojamiento(const Alojamiento& otro);
+    Alojamiento& operator=(const Alojamiento& otro);
     ~Alojamiento();
 
     std::string getCodigo() const;
@@ -44,7 +45,6 @@ public:
     std::string getDocumentoAnfitrion() const;
 
      void mostrarResumen() const;
-
      void agregarReservacion(const Reservacion& r);
      bool estaDisponible(const Fecha& inicio, int noches) const;
 };

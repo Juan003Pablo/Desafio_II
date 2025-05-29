@@ -36,7 +36,7 @@ int main() {
     }
 
     // Guardar datos antes de salir
-    //sistema.guardarDatosEnArchivos();
+    sistema.guardarDatosEnArchivos();
 
     return 0;
 }
