@@ -71,7 +71,7 @@ void SistemaUdeAStay::menuHuesped(Huesped& h) {
             reservarAlojamiento(h);
             break;
         case 2:
-
+            anularReservacion(h);
             break;
         case 3:
             h.mostrarReservaciones();
@@ -104,7 +104,39 @@ void SistemaUdeAStay::menuAnfitrion(Anfitrion& a) {
     } while (opcion != 2);
 }
 
-//---------------------
+void SistemaUdeAStay::anularReservacion(Huesped& h) {
+    std::string codReserva;
+    std::cout << "Ingrese el código de la reservación que desea anular: ";
+    std::cin >> codReserva;
+
+    // Buscar la reservación en las reservas del huésped
+    bool encontrada = false;
+    for (int i = 0; i < h.getCantidadReservaciones(); i++) {
+        if (h.getReservacion(i).getCodigoReservacion() == codReserva) {
+            encontrada = true;
+
+            // Eliminar la reservación del huésped
+            h.eliminarReservacion(i);
+
+            // Buscar el alojamiento correspondiente y eliminar la reservación allí también
+            for (int j = 0; j < cantidadAlojamientos; j++) {
+                Alojamiento& a = alojamientos[j];
+                if (a.getCodigo() == h.getReservacion(i).getCodigoAlojamiento()) {
+                    a.eliminarReservacion(codReserva);
+                    break;
+                }
+            }
+
+            std::cout << "La reservación ha sido anulada exitosamente.\n";
+            break;
+        }
+    }
+
+    if (!encontrada) {
+        std::cout << "No se encontró una reservación con ese código.\n";
+    }
+}
+
 
 void SistemaUdeAStay::reservarAlojamiento(Huesped& h) {
     std::string municipio;
@@ -462,8 +494,6 @@ void SistemaUdeAStay::guardarReservaciones() {
 
     archivoR.close();
 }
-
-
 
 void SistemaUdeAStay::guardarDatosEnArchivos() {
     guardarAlojamientos();
